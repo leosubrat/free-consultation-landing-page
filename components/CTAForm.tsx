@@ -80,7 +80,7 @@ export default function CTAForm() {
   };
 
   return (
-    <section id="consultation-form" className="bg-white py-16 sm:py-20">
+    <section className="bg-white py-16 sm:py-20">
       <div className="section-shell grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-center">
         <div>
           <p className="eyebrow mb-3">Free consultation includes</p>
@@ -112,9 +112,10 @@ export default function CTAForm() {
         </div>
 
         <form
+          id="consultation-form"
           onSubmit={handleSubmit}
           noValidate
-          className="rounded-[8px] border border-slate-200 bg-slate-50 p-5 shadow-soft sm:p-7"
+          className="scroll-mt-20 rounded-[8px] border border-slate-200 bg-slate-50 p-5 shadow-soft sm:p-7"
         >
           <div className="mb-6">
             <h3 className="text-2xl font-black text-ink">Book Your Free Consultation</h3>
