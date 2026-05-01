@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(109, 40, 255, 0.08), transparent 30rem),
+    linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #f5f2ff 42%, #f5f2ff 68%, #ffffff 68%);
+  color: #111827;
+}
+
+::selection {
+  background: #6d28ff;
+  color: #ffffff;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+.section-shell {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+}
+
+.eyebrow {
+  @apply text-xs font-bold uppercase tracking-[0.18em] text-violet-brand;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-4 focus:ring-violet-brand/20;
+}
