@@ -5,7 +5,7 @@ import { CheckCircle2, Mail, MessageCircle } from "lucide-react";
 export const metadata: Metadata = {
   title: "Thank You",
   description:
-    "Your free digital marketing audit and strategy call request has been received."
+    "Your free digital marketing audit and consultation request has been received."
 };
 
 export default function ThankYouPage() {
@@ -18,7 +18,7 @@ export default function ThankYouPage() {
           </div>
           <p className="eyebrow mb-4">Request received</p>
           <h1 className="text-4xl font-black leading-tight text-ink sm:text-6xl">
-            Thank you. Your free strategy call request is confirmed.
+            Thank you. Your free consultation request is confirmed.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
             I&apos;ll review your current marketing details and get back to you
@@ -30,7 +30,7 @@ export default function ThankYouPage() {
               <Mail className="mb-4 h-6 w-6 text-violet-brand" />
               <h2 className="text-lg font-black text-ink">Check your email</h2>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Watch your inbox for call details and any follow-up questions.
+                Watch your inbox for consultation details and any follow-up questions.
               </p>
             </div>
             <div className="rounded-[8px] border border-slate-200 bg-slate-50 p-5">

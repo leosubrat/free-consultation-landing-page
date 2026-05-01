@@ -17,9 +17,9 @@ const auditItems = [
 
 export default function Hero() {
   return (
-    <section className="section-shell grid min-h-[88vh] items-center gap-9 pb-12 pt-8 sm:pb-16 sm:pt-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:pt-8">
+    <section className="section-shell grid min-h-[84vh] items-center gap-9 pb-10 pt-8 sm:pb-14 sm:pt-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:pt-8">
       <div className="max-w-3xl">
-        <p className="eyebrow mb-4">Free 1-on-1 strategy call</p>
+        <p className="eyebrow mb-4">Free 1-on-1 consultation</p>
         <h1 className="max-w-[42rem] tracking-normal">
           <span className="block text-[clamp(2rem,3.5vw,2.8rem)] font-black leading-[1.12] text-ink">
             Stop Wasting Money on Ads
@@ -44,7 +44,7 @@ export default function Hero() {
             Book Free Consultation
           </a>
           <ul className="mt-2.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[0.875rem] font-normal leading-6 text-slate-500/90 sm:justify-start">
-            {["Personalized audit", "1:1 strategy call", "Actionable plan"].map(
+            {["Personalized audit", "1:1 consultation", "Actionable plan"].map(
               (item) => (
                 <li key={item} className="flex items-center gap-2 whitespace-nowrap">
                   <span className="h-1.5 w-1.5 flex-none rounded-full bg-violet-brand/40" />
@@ -75,10 +75,10 @@ export default function Hero() {
           <div className="mb-5 flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-violet-brand">
-                Audit snapshot
+                What&apos;s Not Working Right Now
               </p>
               <p className="mt-1.5 text-sm font-bold text-muted">
-                What I diagnose on your call
+                These are the common issues I see again and again
               </p>
             </div>
             <div className="flex h-12 w-12 flex-none items-center justify-center rounded-[8px] bg-violet-soft text-violet-brand">

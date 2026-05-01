@@ -80,18 +80,18 @@ export default function CTAForm() {
   };
 
   return (
-    <section id="consultation-form" className="bg-white py-20 sm:py-24">
-      <div className="section-shell grid gap-10 lg:grid-cols-[0.78fr_1fr] lg:items-start">
+    <section id="consultation-form" className="bg-white py-16 sm:py-20">
+      <div className="section-shell grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-start">
         <div className="lg:sticky lg:top-10">
           <p className="eyebrow mb-4">Main CTA</p>
-          <h2 className="text-3xl font-black leading-tight text-ink sm:text-5xl">
-            Book Your Free Strategy Call
+          <h2 className="max-w-[38rem] text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22] text-ink">
+            Book Your Free Consultation
           </h2>
-          <p className="mt-5 text-lg leading-8 text-muted">
-            1:1 Session Tailored to Your Business. Walk Away with a Clear Plan to
-            Get Leads and Sales.
+          <p className="mt-4 max-w-xl text-lg leading-[1.65] text-muted">
+            1:1 consultation tailored to your business. Walk away with a clear plan to
+            get leads and sales.
           </p>
-          <ul className="mt-8 space-y-4 text-base font-semibold text-ink/75">
+          <ul className="mt-7 space-y-3.5 text-base font-semibold leading-7 text-ink/75">
             <li>Free digital marketing audit</li>
             <li>Personalized, step-by-step growth plan</li>
             <li>Clear fixes for leads, sales, and conversions</li>
@@ -101,17 +101,17 @@ export default function CTAForm() {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="rounded-[8px] border border-slate-200 bg-slate-50 p-5 shadow-soft sm:p-8"
+          className="rounded-[8px] border border-slate-200 bg-slate-50 p-5 shadow-soft sm:p-7"
         >
-          <div className="mb-7">
-            <h3 className="text-2xl font-black text-ink">Book My Free Call</h3>
+          <div className="mb-6">
+            <h3 className="text-2xl font-black text-ink">Book Your Free Consultation</h3>
             <p className="mt-2 text-sm leading-6 text-muted">
               Fill out the form and I&apos;ll review your current marketing before
-              the call.
+              the consultation.
             </p>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <Field
               id="fullName"
               label="Full Name"
@@ -151,7 +151,7 @@ export default function CTAForm() {
             />
           </div>
 
-          <div className="mt-5">
+          <div className="mt-4">
             <Field
               id="url"
               label="Website / Facebook URL"
@@ -162,7 +162,7 @@ export default function CTAForm() {
             />
           </div>
 
-          <div className="mt-5">
+          <div className="mt-4">
             <label
               htmlFor="message"
               className="mb-2 block text-sm font-bold text-ink"
@@ -188,15 +188,15 @@ export default function CTAForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="focus-ring mt-6 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-[8px] bg-violet-brand px-7 text-base font-black text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep disabled:cursor-not-allowed disabled:opacity-70"
+            className="focus-ring mt-5 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-[8px] bg-violet-brand px-7 text-base font-black text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep disabled:cursor-not-allowed disabled:opacity-70"
           >
             <Send className="h-5 w-5" />
-            {isSubmitting ? "Submitting..." : "Book My Free Call"}
+            {isSubmitting ? "Submitting..." : "Book Free Consultation"}
           </button>
 
-          <p className="mt-4 flex items-center justify-center gap-2 text-center text-sm font-semibold text-muted">
+          <p className="mt-3 flex items-center justify-center gap-2 text-center text-sm font-semibold text-muted">
             <LockKeyhole className="h-4 w-4 text-violet-brand" />
-            We respect your privacy. No spam.
+            I respect your privacy. No spam.
           </p>
         </form>
       </div>

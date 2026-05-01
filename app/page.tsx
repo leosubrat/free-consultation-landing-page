@@ -12,6 +12,9 @@ export default function Home() {
       <Benefits />
       <Urgency />
       <CTAForm />
+      <footer className="bg-white px-5 pb-8 pt-2 text-center text-sm text-muted">
+        <p>&copy; 2026 Subrat Thapa — Made with 💜. All rights reserved.</p>
+      </footer>
     </main>
   );
 }
