@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LockKeyhole, Send } from "lucide-react";
+import { CheckCircle2, LockKeyhole, Send } from "lucide-react";
 
 type FormValues = {
   fullName: string;
@@ -81,21 +81,34 @@ export default function CTAForm() {
 
   return (
     <section id="consultation-form" className="bg-white py-16 sm:py-20">
-      <div className="section-shell grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-start">
-        <div className="lg:sticky lg:top-10">
-          <p className="eyebrow mb-4">Main CTA</p>
-          <h2 className="max-w-[38rem] text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22] text-ink">
-            Book Your Free Consultation
-          </h2>
-          <p className="mt-4 max-w-xl text-lg leading-[1.65] text-muted">
-            1:1 consultation tailored to your business. Walk away with a clear plan to
-            get leads and sales.
+      <div className="section-shell grid gap-8 lg:grid-cols-[0.78fr_1fr] lg:items-center">
+        <div>
+          <p className="eyebrow mb-3">Free consultation includes</p>
+          <p className="mb-5 max-w-md text-[clamp(1.35rem,2vw,1.75rem)] font-bold leading-[1.18] text-ink">
+            What You&apos;ll Get From This Consultation
           </p>
-          <ul className="mt-7 space-y-3.5 text-base font-semibold leading-7 text-ink/75">
-            <li>Free digital marketing audit</li>
-            <li>Personalized, step-by-step growth plan</li>
-            <li>Clear fixes for leads, sales, and conversions</li>
+          <ul className="space-y-3 text-[0.98rem] font-normal leading-7 text-ink/75">
+            {[
+              ["Free digital marketing audit", ""],
+              ["Personalized step-by-step growth plan", ""],
+              ["Clear fixes", "for leads, sales, and conversions"],
+              ["Actionable insights", "you can implement immediately"]
+            ].map((item) => (
+              <li
+                key={item.join(" ")}
+                className="flex items-start gap-3 rounded-[8px] border border-slate-200 bg-slate-50/70 px-4 py-3 shadow-sm"
+              >
+                <CheckCircle2 className="mt-1 h-4 w-4 flex-none text-violet-brand" />
+                <span>
+                  <span className="font-semibold text-ink/80">{item[0]}</span>
+                  {item[1] ? ` ${item[1]}` : ""}
+                </span>
+              </li>
+            ))}
           </ul>
+          <p className="mt-5 max-w-md text-sm font-normal leading-6 text-muted">
+            I&apos;ll review your details and share clear next steps.
+          </p>
         </div>
 
         <form
