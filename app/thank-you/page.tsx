@@ -32,7 +32,17 @@ export default function ThankYouPage() {
             You can also message me directly on WhatsApp for a faster response.
           </p>
 
-          <div className="mt-10 grid gap-4 text-left sm:grid-cols-2">
+          <a
+            href="https://wa.me/9779840705438?text=Hello%20Subrat%2C%20I%20just%20filled%20out%20the%20consultation%20form.%20Excited%20to%20connect!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring mt-4 inline-flex min-h-14 items-center justify-center gap-2 rounded-[8px] bg-violet-brand px-7 text-base font-black text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep"
+          >
+            <MessageCircle className="h-5 w-5" />
+            Message Me on WhatsApp
+          </a>
+
+          <div className="mt-8 grid gap-4 text-left sm:grid-cols-2">
             <div className="rounded-[8px] border border-slate-200 bg-slate-50 p-5">
               <Mail className="mb-4 h-6 w-6 text-violet-brand" />
               <h2 className="text-lg font-black text-ink">Check your email</h2>
@@ -48,16 +58,6 @@ export default function ThankYouPage() {
               </p>
             </div>
           </div>
-
-          <a
-            href="https://wa.me/9779840705438?text=Hello%20Subrat%2C%20I%20just%20filled%20out%20the%20consultation%20form.%20Excited%20to%20connect!"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="focus-ring mt-10 inline-flex min-h-14 items-center justify-center gap-2 rounded-[8px] bg-violet-brand px-7 text-base font-black text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep"
-          >
-            <MessageCircle className="h-5 w-5" />
-            Message Me on WhatsApp
-          </a>
         </div>
       </section>
     </main>
