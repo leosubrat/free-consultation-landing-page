@@ -17,7 +17,7 @@ export default function ThankYouPage() {
           </div>
           <p className="eyebrow mb-4">Request received</p>
           <h1 className="mx-auto flex max-w-[46rem] flex-col items-center gap-2 text-center text-ink">
-            <span className="block text-[clamp(2.25rem,5vw,4.25rem)] font-black leading-[1.12]">
+            <span className="block text-[clamp(2.1rem,4.5vw,3.75rem)] font-semibold leading-[1.12]">
               Thank you.
             </span>
             <span className="block max-w-[58rem] text-[clamp(1.55rem,2.7vw,2.45rem)] font-medium leading-[1.22] lg:whitespace-nowrap">
