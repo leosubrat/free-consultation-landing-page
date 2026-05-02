@@ -46,7 +46,7 @@ export default function Hero() {
           <ul className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[0.875rem] font-normal leading-6 text-slate-500/90 sm:justify-start">
             {["Personalized audit", "1:1 consultation", "Actionable plan"].map(
               (item) => (
-                <li key={item} className="flex items-center gap-2 whitespace-nowrap">
+                <li key={item} className="flex items-center gap-2 sm:whitespace-nowrap">
                   <span className="h-1.5 w-1.5 flex-none rounded-full bg-violet-brand/40" />
                   <span>{item}</span>
                 </li>

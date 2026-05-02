@@ -7,12 +7,20 @@
   background: #ffffff;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(109, 40, 255, 0.08), transparent 30rem),
     linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #f5f2ff 42%, #f5f2ff 68%, #ffffff 68%);
