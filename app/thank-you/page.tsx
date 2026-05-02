@@ -16,8 +16,13 @@ export default function ThankYouPage() {
             <CheckCircle2 className="h-10 w-10" />
           </div>
           <p className="eyebrow mb-4">Request received</p>
-          <h1 className="mx-auto max-w-[46rem] text-[clamp(2rem,5vw,4rem)] font-black leading-[1.18] text-ink">
-            Thank you. Your free consultation request is confirmed.
+          <h1 className="mx-auto flex max-w-[46rem] flex-col items-center gap-2 text-center text-ink">
+            <span className="block text-[clamp(2.25rem,5vw,4.25rem)] font-black leading-[1.12]">
+              Thank you.
+            </span>
+            <span className="block max-w-[58rem] text-[clamp(1.55rem,2.7vw,2.45rem)] font-medium leading-[1.22] lg:whitespace-nowrap">
+              Your free consultation request is confirmed.
+            </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
             I&apos;ll review your current marketing details and get back to you
