@@ -22,13 +22,14 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top left, rgba(109, 40, 255, 0.08), transparent 30rem),
-    linear-gradient(180deg, #ffffff 0%, #ffffff 42%, #f5f2ff 42%, #f5f2ff 68%, #ffffff 68%);
+    radial-gradient(circle at top left, rgba(101, 40, 247, 0.08), transparent 30rem),
+    radial-gradient(circle at top right, rgba(101, 40, 247, 0.06), transparent 26rem),
+    #ffffff;
   color: #111827;
 }
 
 ::selection {
-  background: #6d28ff;
+  background: #6528f7;
   color: #ffffff;
 }
 
@@ -42,8 +43,28 @@ button {
   @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
 }
 
+.section-y {
+  @apply py-12 sm:py-14 lg:py-16;
+}
+
+.section-heading {
+  @apply text-[clamp(1.65rem,2.8vw,2.35rem)] font-black leading-[1.12] text-ink;
+}
+
+.page-heading {
+  @apply text-[clamp(2.05rem,4.4vw,3.45rem)] font-black leading-[1.08] text-ink;
+}
+
+.page-copy {
+  @apply text-base leading-8 text-muted sm:text-lg;
+}
+
+.brand-button {
+  @apply focus-ring inline-flex min-h-14 items-center justify-center gap-2 rounded-[12px] bg-violet-brand px-7 text-base font-black text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep hover:shadow-[0_16px_34px_rgba(101,40,247,0.22)];
+}
+
 .eyebrow {
-  @apply text-xs font-bold uppercase tracking-[0.18em] text-violet-brand;
+  @apply text-xs font-bold uppercase tracking-[0.18em] text-violet-brand sm:text-[0.8rem];
 }
 
 .focus-ring {

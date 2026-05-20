@@ -2,11 +2,11 @@ import { AlertCircle } from "lucide-react";
 
 export default function Problem() {
   return (
-    <section id="problem" className="bg-violet-soft py-16 sm:py-20">
+    <section id="problem" className="section-y bg-violet-soft">
       <div className="section-shell grid gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-center">
         <div>
           <p className="eyebrow mb-4">The problem</p>
-          <h2 className="max-w-[38rem] text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22] text-ink">
+          <h2 className="section-heading max-w-[38rem]">
             Your Ads Are Not the Only Issue. The Strategy Behind Them Matters.
           </h2>
         </div>
@@ -23,7 +23,7 @@ export default function Problem() {
           </p>
           <a
             href="#consultation-form"
-            className="mt-6 inline-flex min-h-12 items-center justify-center rounded-[8px] border border-violet-brand px-5 text-sm font-bold text-violet-brand transition hover:bg-violet-brand hover:text-white"
+            className="brand-button mt-6"
           >
             Book Free Consultation
           </a>

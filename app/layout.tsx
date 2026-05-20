@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import SmoothAnchorScroll from "@/components/SmoothAnchorScroll";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,24 +25,26 @@ export const metadata: Metadata = {
     "Book a free 1-on-1 digital marketing consultation to identify what is stopping your leads and sales, then walk away with a clear growth plan.",
   icons: {
     icon: [
+      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }
     ],
+    shortcut: "/favicon-32x32.png",
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
   },
   openGraph: {
-    title: "Stop Wasting Money on Ads. Get Consistent Leads and Sales.",
+    title: "Free Digital Marketing Consultation",
     description:
-      "Get a customized marketing plan for your business in a free 1-on-1 consultation.",
+      "Book a free 1:1 digital marketing consultation for Nepal-based business owners who want more leads, customers, and sales.",
     url: "/",
-    siteName: "Free Digital Marketing Audit",
+    siteName: "Free Digital Marketing Consultation",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
     title: "Free Digital Marketing Consultation",
     description:
-      "Running ads but not getting results? It is your strategy. Book a free 1-on-1 consultation."
+      "Get a simple digital marketing plan to generate more leads, customers, and sales."
   }
 };
 
@@ -53,6 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        <SmoothAnchorScroll />
         {children}
       </body>
     </html>

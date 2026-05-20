@@ -25,11 +25,11 @@ const steps = [
 
 export default function Benefits() {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="section-y bg-white">
       <div className="section-shell">
         <div className="mx-auto max-w-[44rem] text-center">
           <p className="eyebrow mb-4">Benefits</p>
-          <h2 className="text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22] text-ink">
+          <h2 className="section-heading">
             What You&apos;ll Get From This Consultation
           </h2>
         </div>
@@ -51,7 +51,7 @@ export default function Benefits() {
         <div className="mt-16">
           <div className="mx-auto max-w-[44rem] text-center">
             <p className="eyebrow mb-4">Process</p>
-            <h2 className="text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22] text-ink">
+            <h2 className="section-heading">
               How the Consultation Works
             </h2>
           </div>
@@ -81,7 +81,7 @@ export default function Benefits() {
           <div className="mt-8 text-center">
             <a
               href="#consultation-form"
-              className="focus-ring inline-flex min-h-14 items-center justify-center gap-2 rounded-[8px] bg-violet-brand px-7 text-base font-bold text-white shadow-button transition hover:-translate-y-0.5 hover:bg-violet-deep"
+              className="brand-button"
             >
               <Rocket className="h-5 w-5" />
               Book Free Consultation

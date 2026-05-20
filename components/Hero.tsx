@@ -39,7 +39,7 @@ export default function Hero() {
         <div className="mt-8">
           <a
             href="#consultation-form"
-            className="focus-ring inline-flex min-h-14 w-full items-center justify-center rounded-[8px] bg-violet-brand px-7 text-base font-bold text-white shadow-[0_4px_14px_rgba(0,0,0,0.10),0_18px_40px_rgba(109,40,255,0.18)] transition duration-200 hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-violet-deep sm:w-auto sm:min-w-60"
+            className="brand-button w-full sm:w-auto sm:min-w-60"
           >
             Book Free Consultation
           </a>

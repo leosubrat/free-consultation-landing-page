@@ -2,14 +2,14 @@ import { Clock3, ShieldCheck } from "lucide-react";
 
 export default function Urgency() {
   return (
-    <section className="bg-ink py-14 text-white sm:py-16">
+    <section className="section-y bg-ink text-white">
       <div className="section-shell">
         <div className="grid gap-6 lg:grid-cols-[1fr_0.72fr] lg:items-center">
           <div>
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-violet-line">
               Limited free consultations
             </p>
-            <h2 className="max-w-[40rem] text-[clamp(1.6rem,2.5vw,2.2rem)] font-bold leading-[1.22]">
+            <h2 className="max-w-[40rem] text-[clamp(1.65rem,2.8vw,2.35rem)] font-black leading-[1.12]">
               Book Your Free Consultation
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-white/[0.72]">
