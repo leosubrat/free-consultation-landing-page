@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
-import SmoothAnchorScroll from "@/components/SmoothAnchorScroll";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap"
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
   display: "swap"
 });
 
@@ -54,9 +47,38 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <SmoothAnchorScroll />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function () {
+              function cleanInitialFormHash() {
+                if (window.location.pathname === "/" && window.location.hash === "#consultation-form") {
+                  window.history.replaceState(null, "", window.location.pathname + window.location.search);
+                  window.scrollTo(0, 0);
+                }
+              }
+
+              cleanInitialFormHash();
+              window.addEventListener("pageshow", cleanInitialFormHash);
+              window.addEventListener("load", cleanInitialFormHash, { once: true });
+
+              document.addEventListener("click", function (event) {
+                var link = event.target && event.target.closest ? event.target.closest('a[href="#consultation-form"]') : null;
+                var target = document.getElementById("consultation-form");
+
+                if (!link || !target) {
+                  return;
+                }
+
+                event.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, true);
+            })();
+          `
+          }}
+        />
         {children}
       </body>
     </html>

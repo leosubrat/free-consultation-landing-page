@@ -22,8 +22,7 @@ const config: Config = {
         button: "0 18px 40px rgba(101, 40, 247, 0.24)"
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
-        display: ["var(--font-playfair)", "Georgia", "serif"]
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"]
       }
     }
   },

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import CTAForm from "@/components/CTAForm";
 import FAQ from "@/components/FAQ";
+import FormScrollButton from "@/components/FormScrollButton";
 
 const painPoints = [
   "Posting on Facebook and Instagram but not getting enough inquiries",
@@ -77,13 +78,12 @@ export default function Home() {
             sales, and faster business growth.
           </p>
           <div className="mt-8">
-            <a
-              href="#consultation-form"
+            <FormScrollButton
               className="brand-button w-full max-w-xs sm:w-auto sm:max-w-none"
             >
               Book your FREE call now
               <ArrowDown className="h-5 w-5" />
-            </a>
+            </FormScrollButton>
           </div>
         </div>
       </section>
@@ -169,13 +169,12 @@ export default function Home() {
           </div>
 
           <div className="mt-9 flex justify-center">
-            <a
-              href="#consultation-form"
+            <FormScrollButton
               className="brand-button"
             >
               <Users className="h-5 w-5" />
               Book your FREE call now
-            </a>
+            </FormScrollButton>
           </div>
         </div>
       </section>

@@ -34,6 +34,7 @@ const requiredFields: Array<keyof FormValues> = [
 function validate(values: FormValues) {
   const errors: FormErrors = {};
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneDigits = values.whatsapp.replace(/\D/g, "");
 
   requiredFields.forEach((field) => {
     if (!values[field].trim()) {
@@ -43,6 +44,10 @@ function validate(values: FormValues) {
 
   if (values.email && !emailPattern.test(values.email)) {
     errors.email = "Please enter a valid email address.";
+  }
+
+  if (values.whatsapp && phoneDigits.length < 7) {
+    errors.whatsapp = "Please enter a valid WhatsApp number.";
   }
 
   return errors;
