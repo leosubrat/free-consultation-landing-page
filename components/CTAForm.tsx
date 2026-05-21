@@ -159,7 +159,7 @@ export default function CTAForm() {
                       id="ff-6a0db2f5ecee9ce3e8c6b6a8-tzADUCQxYX"
                       name="fields.websiteOrSmLink"
                       label="Website or Facebook Page Link"
-                      placeholder="https://yourwebsite.com or Facebook page"
+                      placeholder="yourwebsite.com or Facebook page"
                       required
                       dataFfTab="fields.websiteOrSmLink:fields.businessName:fields.message"
                     />
@@ -285,6 +285,32 @@ export default function CTAForm() {
           .flodesk-approved-form input::placeholder {
             color: #94a3b8 !important;
             opacity: 1 !important;
+          }
+
+          .flodesk-approved-form .fd-form-feedback,
+          .flodesk-approved-form .fd-form-error,
+          .flodesk-approved-form .fd-form-group.fd-has-error .fd-form-feedback {
+            display: block;
+            margin-top: 0.5rem;
+            color: #dc2626 !important;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.35;
+          }
+
+          .flodesk-approved-form .fd-form-group.fd-has-error input,
+          .flodesk-approved-form input.fd-has-error,
+          .flodesk-approved-form input[aria-invalid="true"] {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.12),
+              0 1px 2px rgba(15, 23, 42, 0.05) !important;
+          }
+
+          .flodesk-approved-form .fd-form-group.fd-has-error input:focus,
+          .flodesk-approved-form input.fd-has-error:focus,
+          .flodesk-approved-form input[aria-invalid="true"]:focus {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
           }
 
           .flodesk-approved-form button:focus {
