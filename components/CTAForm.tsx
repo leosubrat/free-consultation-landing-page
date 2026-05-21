@@ -1,16 +1,59 @@
 "use client";
 
 import { useEffect } from "react";
-import Script from "next/script";
 import { Send } from "lucide-react";
 
 const FLODESK_FORM_ID = "6a0db2f5ecee9ce3e8c6b6a8";
 const FLODESK_ROOT_CLASS = "ff-6a0db2f5ecee9ce3e8c6b6a8";
 const FLODESK_CONFIG =
-  "eyJ0cmlnZ2VyIjp7Im1vZGUiOiJpbW1lZGlhdGVseSIsInZhbHVlIjowfSwib25TdWNjZXNzIjp7Im1vZGUiOiJtZXNzYWdlIiwibWVzc2FnZSI6IjxkaXYgZGF0YS1wYXJhZ3JhcGg9XCJ0cnVlXCI+R290IGl0ISBDaGVjayB5b3VyIGluYm94IGZvciBhbiBlbWFpbCB0byBjb25maXJtIHlvdXIgc3Vic2NyaXB0aW9uLjwvZGl2PiIsInJlZGlyZWN0VXJsIjoiIn0sImNvaSI6dHJ1ZSwic2hvd0ZvclJldHVyblZpc2l0b3JzIjp0cnVlLCJub3RpZmljYXRpb24iOnRydWUsImdkcHIiOnsiYWNjZXB0c01hcmtldGluZyI6ZmFsc2UsInByaXZhY3lQb2xpY3kiOnsiZW5hYmxlZCI6ZmFsc2UsIm1hbmRhdG9yeSI6ZmFsc2V9fSwidHJhY2tpbmdDb25maWciOnsibWV0YVBpeGVsSWQiOiIiLCJjb29raWVCYW5uZXJFbmFibGVkIjpmYWxzZSwiZ29vZ2xlQW5hbHl0aWNzSWQiOiIifX0=";
+  "eyJ0cmlnZ2VyIjp7Im1vZGUiOiJpbW1lZGlhdGVseSIsInZhbHVlIjowfSwib25TdWNjZXNzIjp7Im1vZGUiOiJtZXNzYWdlIiwibWVzc2FnZSI6IjxkaXYgZGF0YS1wYXJhZ3JhcGg9XCJ0cnVlXCI+R290IGl0ISBDaGVjayB5b3VyIGluYm94IGZvciBhbiBlbWFpbCB0byBjb25maXJtIHlvdXIgc3Vic2NyaXB0aW9uLjwvZGl2PiIsInJlZGlyZWN0VXJsIjoiIn0sImNvaSI6ZmFsc2UsInNob3dGb3JSZXR1cm5WaXNpdG9ycyI6dHJ1ZSwibm90aWZpY2F0aW9uIjpmYWxzZSwiZ2RwciI6eyJhY2NlcHRzTWFya2V0aW5nIjpmYWxzZSwicHJpdmFjeVBvbGljeSI6eyJlbmFibGVkIjpmYWxzZSwibWFuZGF0b3J5IjpmYWxzZX19LCJ0cmFja2luZ0NvbmZpZyI6eyJtZXRhUGl4ZWxJZCI6IiIsImNvb2tpZUJhbm5lckVuYWJsZWQiOmZhbHNlLCJnb29nbGVBbmFseXRpY3NJZCI6IiJ9fQ==";
+
+type FlodeskWindow = typeof window & {
+  FlodeskObject?: string;
+  fd?: ((...args: unknown[]) => void) & { q?: unknown[] };
+};
+
+function loadFlodesk() {
+  const flodeskWindow = window as FlodeskWindow;
+  flodeskWindow.FlodeskObject = "fd";
+
+  if (!flodeskWindow.fd) {
+    const fn = ((...args: unknown[]) => {
+      fn.q = fn.q || [];
+      fn.q.push(args);
+    }) as NonNullable<FlodeskWindow["fd"]>;
+    flodeskWindow.fd = fn;
+  }
+
+  if (!document.querySelector('script[data-flodesk-universal="true"]')) {
+    const firstScript = document.getElementsByTagName("script")[0];
+    const version = `?v=${Math.floor(Date.now() / (120 * 1000)) * 60}`;
+
+    const moduleScript = document.createElement("script");
+    moduleScript.async = true;
+    moduleScript.type = "module";
+    moduleScript.src = `https://assets.flodesk.com/universal.mjs${version}`;
+    moduleScript.dataset.flodeskUniversal = "true";
+    firstScript.parentNode?.insertBefore(moduleScript, firstScript);
+
+    const legacyScript = document.createElement("script");
+    legacyScript.async = true;
+    legacyScript.noModule = true;
+    legacyScript.src = `https://assets.flodesk.com/universal.js${version}`;
+    legacyScript.dataset.flodeskUniversal = "true";
+    firstScript.parentNode?.insertBefore(legacyScript, firstScript);
+  }
+
+  flodeskWindow.fd("form:handle", {
+    formId: FLODESK_FORM_ID,
+    rootEl: `.${FLODESK_ROOT_CLASS}`
+  });
+}
 
 export default function CTAForm() {
   useEffect(() => {
+    loadFlodesk();
+
     const root = document.querySelector<HTMLElement>(`.${FLODESK_ROOT_CLASS}`);
 
     if (!root) {
@@ -31,7 +74,7 @@ export default function CTAForm() {
 
       redirectTimer = window.setTimeout(() => {
         window.location.assign("/thanks");
-      }, 1800);
+      }, 3500);
     };
 
     const observer = new MutationObserver(redirectAfterSuccess);
@@ -91,119 +134,170 @@ export default function CTAForm() {
           />
           {/*tpl {% endblock %} tpl*/}
 
-          <form
-            action={`https://form.flodesk.com/forms/${FLODESK_FORM_ID}/submit`}
-            method="post"
-            data-ff-el="form"
-            className="flodesk-approved-form rounded-[20px] border border-slate-200 bg-slate-50/80 p-5 shadow-soft sm:p-8"
-          >
-            <div data-ff-el="content">
-              <div className="grid gap-5 sm:grid-cols-2" data-ff-el="fields">
-                {/*tpl {% block fields %} tpl*/}
-                <Field
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-firstName"
-                  name="firstName"
-                  label="Full Name"
-                  placeholder="Your full name"
-                  required
-                  dataFfTab="firstName::email"
-                />
-                <Field
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-email"
-                  name="email"
-                  label="Email"
-                  placeholder="you@company.com"
-                  required
-                  dataFfTab="email:firstName:fields.whatsappNumber"
-                />
-                <Field
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-EGqdNtd6pq"
-                  name="fields.whatsappNumber"
-                  label="WhatsApp Number"
-                  placeholder="+977 98XXXXXXXX"
-                  required
-                  dataFfTab="fields.whatsappNumber:email:fields.businessName"
-                />
-                <Field
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-4vHtNOpMvF"
-                  name="fields.businessName"
-                  label="Business Name"
-                  placeholder="Your business name"
-                  required
-                  dataFfTab="fields.businessName:fields.whatsappNumber:fields.websiteOrSmLink"
-                />
-              </div>
-
-              <div className="mt-5">
-                <Field
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-tzADUCQxYX"
-                  name="fields.websiteOrSmLink"
-                  label="Website or Facebook Page Link"
-                  placeholder="https://yourwebsite.com or Facebook page"
-                  required
-                  dataFfTab="fields.websiteOrSmLink:fields.businessName:fields.message"
-                />
-              </div>
-
-              <div className="mt-5">
-                <label
-                  htmlFor="ff-6a0db2f5ecee9ce3e8c6b6a8-zzWZytQ9Nr"
-                  className="mb-2 block text-sm font-bold text-ink"
-                >
-                  Message for Us
-                </label>
-                <textarea
-                  id="ff-6a0db2f5ecee9ce3e8c6b6a8-zzWZytQ9Nr"
-                  rows={5}
-                  name="fields.message"
-                  maxLength={255}
-                  data-ff-tab="fields.message:fields.websiteOrSmLink:submit"
-                  placeholder="Tell me what you need help with..."
-                  className="focus-ring w-full resize-none rounded-[12px] border border-slate-200 bg-white px-4 py-3 text-base leading-7 text-ink shadow-sm transition placeholder:text-slate-400 focus:border-violet-brand focus:shadow-[0_0_0_1px_rgba(101,40,247,0.18)]"
-                />
-              </div>
-
-              <input
-                type="text"
-                maxLength={255}
-                name="confirm_email_address"
-                style={{ display: "none" }}
-              />
-              {/*tpl {% endblock %} tpl*/}
-
-              <div data-ff-el="footer">
-                <button
-                  type="submit"
-                  data-ff-el="submit"
-                  data-ff-tab="submit"
-                  className="brand-button mt-7 w-full sm:min-h-16"
-                >
-                  <Send className="h-5 w-5" />
-                  Submit &amp; Book My Free Call
-                </button>
-              </div>
-            </div>
-
-            <div className="hidden" data-ff-el="success">
-              <div>
-                <div>
-                  <div data-paragraph="true">
-                    Thank you.
-                    <br />
-                    <strong>Your free consultation request is confirmed.</strong>
+          <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__container">
+            <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__wrapper">
+              <form
+                action={`https://form.flodesk.com/forms/${FLODESK_FORM_ID}/submit`}
+                method="post"
+                data-ff-el="form"
+                className="ff-6a0db2f5ecee9ce3e8c6b6a8__form flodesk-approved-form rounded-[20px] border border-slate-200 bg-slate-50/80 p-5 shadow-soft sm:p-8"
+              >
+                <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__title sr-only">
+                  <div style={{ wordBreak: "break-word" }}>
+                    <div data-paragraph="true">Free 1:1 Consultation Call</div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div data-ff-el="error" />
+                <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__subtitle sr-only">
+                  <div style={{ wordBreak: "break-word" }}>
+                    <div data-paragraph="true">
+                      Grab a FREE 1:1 Digital Marketing consultation call with me!
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ff-6a0db2f5ecee9ce3e8c6b6a8__content fd-form-content"
+                  data-ff-el="content"
+                >
+                  <div
+                    className="ff-6a0db2f5ecee9ce3e8c6b6a8__fields grid gap-5 sm:grid-cols-2"
+                    data-ff-el="fields"
+                  >
+                    {/*tpl {% block fields %} tpl*/}
+                    <Field
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-firstName"
+                      name="firstName"
+                      label="Full Name"
+                      placeholder="Your full name"
+                      required
+                      dataFfTab="firstName::email"
+                    />
+                    <Field
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-email"
+                      name="email"
+                      label="Email"
+                      placeholder="you@company.com"
+                      required
+                      dataFfTab="email:firstName:fields.whatsappNumber"
+                    />
+                    <Field
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-EGqdNtd6pq"
+                      name="fields.whatsappNumber"
+                      label="WhatsApp Number"
+                      placeholder="+977 98XXXXXXXX"
+                      required
+                      dataFfTab="fields.whatsappNumber:email:fields.businessName"
+                    />
+                    <Field
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-4vHtNOpMvF"
+                      name="fields.businessName"
+                      label="Business Name"
+                      placeholder="Your business name"
+                      required
+                      dataFfTab="fields.businessName:fields.whatsappNumber:fields.websiteOrSmLink"
+                    />
+                  </div>
 
-            <p className="mt-3 text-center text-sm leading-6 text-muted">
-              No spam. I&apos;ll only contact you regarding your consultation.
-            </p>
-          </form>
+                  <div className="mt-5">
+                    <Field
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-tzADUCQxYX"
+                      name="fields.websiteOrSmLink"
+                      label="Website or Facebook Page Link"
+                      placeholder="https://yourwebsite.com or Facebook page"
+                      required
+                      dataFfTab="fields.websiteOrSmLink:fields.businessName:fields.message"
+                    />
+                  </div>
+
+                  <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__field fd-form-group mt-5">
+                    <label
+                      htmlFor="ff-6a0db2f5ecee9ce3e8c6b6a8-zzWZytQ9Nr"
+                      className="ff-6a0db2f5ecee9ce3e8c6b6a8__label fd-form-label mb-2 block text-sm font-bold text-ink"
+                    >
+                      Message for Us
+                    </label>
+                    <input
+                      id="ff-6a0db2f5ecee9ce3e8c6b6a8-zzWZytQ9Nr"
+                      type="text"
+                      maxLength={255}
+                      name="fields.message"
+                      data-ff-tab="fields.message:fields.websiteOrSmLink:submit"
+                      placeholder="Tell me what you need help with..."
+                      className="ff-6a0db2f5ecee9ce3e8c6b6a8__control fd-form-control focus-ring min-h-[10.25rem] w-full rounded-[12px] border border-slate-200 bg-white px-4 py-3 text-base leading-7 text-ink shadow-sm transition placeholder:text-slate-400 focus:border-violet-brand focus:shadow-[0_0_0_1px_rgba(101,40,247,0.18)]"
+                    />
+                  </div>
+
+                  <input
+                    type="text"
+                    maxLength={255}
+                    name="confirm_email_address"
+                    style={{ display: "none" }}
+                  />
+                  {/*tpl {% endblock %} tpl*/}
+
+                  <div
+                    className="ff-6a0db2f5ecee9ce3e8c6b6a8__footer"
+                    data-ff-el="footer"
+                  >
+                    <button
+                      type="submit"
+                      data-ff-el="submit"
+                      data-ff-tab="submit"
+                      className="ff-6a0db2f5ecee9ce3e8c6b6a8__button fd-btn brand-button mt-7 w-full sm:min-h-16"
+                    >
+                      <Send className="h-5 w-5" />
+                      Submit &amp; Book My Free Call
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  className="ff-6a0db2f5ecee9ce3e8c6b6a8__success fd-form-success"
+                  data-ff-el="success"
+                >
+                  <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__success-message">
+                    <div>
+                      <div>
+                        <div data-paragraph="true">
+                          Thank you.
+                          <br />
+                          <strong>Your free consultation request is confirmed.</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="ff-6a0db2f5ecee9ce3e8c6b6a8__error fd-form-error"
+                  data-ff-el="error"
+                />
+
+                <p className="mt-3 text-center text-sm leading-6 text-muted">
+                  No spam. I&apos;ll only contact you regarding your consultation.
+                </p>
+              </form>
+            </div>
+          </div>
         </div>
 
         <style jsx global>{`
+          .ff-6a0db2f5ecee9ce3e8c6b6a8__container {
+            max-width: 100%;
+            overflow: visible;
+            background: transparent;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8__wrapper {
+            display: block;
+          }
+
+          .flodesk-approved-form {
+            width: 100%;
+            margin: 0;
+            color: #111827;
+            font-family: var(--font-inter), Inter, system-ui, sans-serif;
+            text-align: left;
+          }
+
           .flodesk-approved-form label {
             display: block;
             margin-bottom: 0.5rem;
@@ -211,10 +305,12 @@ export default function CTAForm() {
             font-size: 0.875rem;
             font-weight: 700;
             line-height: 1.25rem;
+            opacity: 1 !important;
+            position: static;
+            white-space: normal;
           }
 
-          .flodesk-approved-form input,
-          .flodesk-approved-form textarea {
+          .flodesk-approved-form input {
             width: 100%;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
@@ -222,27 +318,89 @@ export default function CTAForm() {
             color: #111827;
             font-size: 1rem;
             box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
-          }
-
-          .flodesk-approved-form input {
-            min-height: 3rem;
             padding: 0.75rem 1rem;
           }
 
-          .flodesk-approved-form textarea {
-            resize: none;
-            padding: 0.75rem 1rem;
-            line-height: 1.75rem;
-          }
-
-          .flodesk-approved-form input::placeholder,
-          .flodesk-approved-form textarea::placeholder {
-            color: #94a3b8;
-            opacity: 1;
+          .flodesk-approved-form input::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
           }
 
           .flodesk-approved-form button:focus {
             outline: none;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form
+            .fd-form-content {
+            position: relative;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8.fd-has-captcha
+            .flodesk-approved-form
+            .fd-form-content
+            > *:not(.fd-form-captcha),
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form.fd-has-captcha
+            .fd-form-content
+            > *:not(.fd-form-captcha),
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form
+            .fd-has-captcha
+            .fd-form-content
+            > *:not(.fd-form-captcha) {
+            opacity: 1 !important;
+            visibility: visible !important;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form
+            .fd-form-captcha {
+            position: static !important;
+            inset: auto !important;
+            display: flex !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            margin: 1rem auto 0 !important;
+            padding: 0.875rem 1rem !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 14px !important;
+            background: #ffffff !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+            overflow: visible !important;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form
+            .fd-form-captcha
+            > * {
+            max-width: min(100%, 320px) !important;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8
+            .flodesk-approved-form
+            .fd-form-captcha
+            iframe {
+            max-width: 100% !important;
+          }
+
+          .flodesk-approved-form .fd-form-success {
+            display: none;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8[data-ff-stage="success"]
+            .flodesk-approved-form
+            .fd-form-content {
+            display: none;
+          }
+
+          .ff-6a0db2f5ecee9ce3e8c6b6a8[data-ff-stage="success"]
+            .flodesk-approved-form
+            .fd-form-success {
+            display: block;
           }
 
           @media (min-width: 640px) {
@@ -250,39 +408,17 @@ export default function CTAForm() {
               min-height: 3.5rem;
             }
           }
-        `}</style>
 
-        <Script id="flodesk-universal" strategy="afterInteractive">
-          {`
-            (function(w, d, t, h, s, n) {
-              w.FlodeskObject = n;
-              var fn = function() {
-                (w[n].q = w[n].q || []).push(arguments);
-              };
-              w[n] = w[n] || fn;
-              var f = d.getElementsByTagName(t)[0];
-              var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
-              var sm = d.createElement(t);
-              sm.async = true;
-              sm.type = 'module';
-              sm.src = h + s + '.mjs' + v;
-              f.parentNode.insertBefore(sm, f);
-              var sn = d.createElement(t);
-              sn.async = true;
-              sn.noModule = true;
-              sn.src = h + s + '.js' + v;
-              f.parentNode.insertBefore(sn, f);
-            })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
-          `}
-        </Script>
-        <Script id="flodesk-form-handle" strategy="afterInteractive">
-          {`
-            window.fd('form:handle', {
-              formId: '6a0db2f5ecee9ce3e8c6b6a8',
-              rootEl: '.ff-6a0db2f5ecee9ce3e8c6b6a8',
-            });
-          `}
-        </Script>
+          @media (max-width: 640px) {
+            .ff-6a0db2f5ecee9ce3e8c6b6a8
+              .flodesk-approved-form
+              .fd-form-captcha {
+              margin-top: 0.875rem !important;
+              padding: 0.75rem !important;
+              border-radius: 12px !important;
+            }
+          }
+        `}</style>
       </div>
     </section>
   );
@@ -304,8 +440,11 @@ function Field({
   dataFfTab: string;
 }) {
   return (
-    <div>
-      <label htmlFor={id} className="mb-2 block text-sm font-bold leading-5 text-ink">
+    <div className="ff-6a0db2f5ecee9ce3e8c6b6a8__field fd-form-group">
+      <label
+        htmlFor={id}
+        className="ff-6a0db2f5ecee9ce3e8c6b6a8__label fd-form-label mb-2 block text-sm font-bold leading-5 text-ink"
+      >
         {label}
         {required ? <span className="text-violet-brand"> *</span> : null}
       </label>
@@ -317,7 +456,7 @@ function Field({
         required={required}
         data-ff-tab={dataFfTab}
         placeholder={placeholder}
-        className="focus-ring min-h-12 w-full rounded-[12px] border border-slate-200 bg-white px-4 py-3 text-base text-ink shadow-sm transition placeholder:text-slate-400 focus:border-violet-brand focus:shadow-[0_0_0_1px_rgba(101,40,247,0.18)] sm:min-h-14"
+        className="ff-6a0db2f5ecee9ce3e8c6b6a8__control fd-form-control focus-ring min-h-12 w-full rounded-[12px] border border-slate-200 bg-white px-4 py-3 text-base text-ink shadow-sm transition placeholder:text-slate-400 focus:border-violet-brand focus:shadow-[0_0_0_1px_rgba(101,40,247,0.18)] sm:min-h-14"
       />
     </div>
   );
