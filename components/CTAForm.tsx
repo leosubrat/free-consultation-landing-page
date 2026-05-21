@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Script from "next/script";
 import { Send } from "lucide-react";
 
 const FLODESK_FORM_ID = "6a0db2f5ecee9ce3e8c6b6a8";
@@ -8,52 +9,8 @@ const FLODESK_ROOT_CLASS = "ff-6a0db2f5ecee9ce3e8c6b6a8";
 const FLODESK_CONFIG =
   "eyJ0cmlnZ2VyIjp7Im1vZGUiOiJpbW1lZGlhdGVseSIsInZhbHVlIjowfSwib25TdWNjZXNzIjp7Im1vZGUiOiJtZXNzYWdlIiwibWVzc2FnZSI6IjxkaXYgZGF0YS1wYXJhZ3JhcGg9XCJ0cnVlXCI+R290IGl0ISBDaGVjayB5b3VyIGluYm94IGZvciBhbiBlbWFpbCB0byBjb25maXJtIHlvdXIgc3Vic2NyaXB0aW9uLjwvZGl2PiIsInJlZGlyZWN0VXJsIjoiIn0sImNvaSI6ZmFsc2UsInNob3dGb3JSZXR1cm5WaXNpdG9ycyI6dHJ1ZSwibm90aWZpY2F0aW9uIjpmYWxzZSwiZ2RwciI6eyJhY2NlcHRzTWFya2V0aW5nIjpmYWxzZSwicHJpdmFjeVBvbGljeSI6eyJlbmFibGVkIjpmYWxzZSwibWFuZGF0b3J5IjpmYWxzZX19LCJ0cmFja2luZ0NvbmZpZyI6eyJtZXRhUGl4ZWxJZCI6IiIsImNvb2tpZUJhbm5lckVuYWJsZWQiOmZhbHNlLCJnb29nbGVBbmFseXRpY3NJZCI6IiJ9fQ==";
 
-type FlodeskWindow = typeof window & {
-  FlodeskObject?: string;
-  fd?: ((...args: unknown[]) => void) & { q?: unknown[] };
-};
-
-function loadFlodesk() {
-  const flodeskWindow = window as FlodeskWindow;
-  flodeskWindow.FlodeskObject = "fd";
-
-  if (!flodeskWindow.fd) {
-    const fn = ((...args: unknown[]) => {
-      fn.q = fn.q || [];
-      fn.q.push(args);
-    }) as NonNullable<FlodeskWindow["fd"]>;
-    flodeskWindow.fd = fn;
-  }
-
-  if (!document.querySelector('script[data-flodesk-universal="true"]')) {
-    const firstScript = document.getElementsByTagName("script")[0];
-    const version = `?v=${Math.floor(Date.now() / (120 * 1000)) * 60}`;
-
-    const moduleScript = document.createElement("script");
-    moduleScript.async = true;
-    moduleScript.type = "module";
-    moduleScript.src = `https://assets.flodesk.com/universal.mjs${version}`;
-    moduleScript.dataset.flodeskUniversal = "true";
-    firstScript.parentNode?.insertBefore(moduleScript, firstScript);
-
-    const legacyScript = document.createElement("script");
-    legacyScript.async = true;
-    legacyScript.noModule = true;
-    legacyScript.src = `https://assets.flodesk.com/universal.js${version}`;
-    legacyScript.dataset.flodeskUniversal = "true";
-    firstScript.parentNode?.insertBefore(legacyScript, firstScript);
-  }
-
-  flodeskWindow.fd("form:handle", {
-    formId: FLODESK_FORM_ID,
-    rootEl: `.${FLODESK_ROOT_CLASS}`
-  });
-}
-
 export default function CTAForm() {
   useEffect(() => {
-    loadFlodesk();
-
     const root = document.querySelector<HTMLElement>(`.${FLODESK_ROOT_CLASS}`);
 
     if (!root) {
@@ -244,8 +201,12 @@ export default function CTAForm() {
                       data-ff-tab="submit"
                       className="ff-6a0db2f5ecee9ce3e8c6b6a8__button fd-btn brand-button mt-7 w-full sm:min-h-16"
                     >
-                      <Send className="h-5 w-5" />
-                      Submit &amp; Book My Free Call
+                      <div className="inline-flex items-center justify-center gap-2">
+                        <Send className="h-5 w-5" />
+                        <span data-draw-element="editable">
+                          Submit &amp; Book My Free Call
+                        </span>
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -419,6 +380,38 @@ export default function CTAForm() {
             }
           }
         `}</style>
+
+        <Script id="flodesk-universal" strategy="afterInteractive">
+          {`
+            (function(w, d, t, h, s, n) {
+              w.FlodeskObject = n;
+              var fn = function() {
+                (w[n].q = w[n].q || []).push(arguments);
+              };
+              w[n] = w[n] || fn;
+              var f = d.getElementsByTagName(t)[0];
+              var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+              var sm = d.createElement(t);
+              sm.async = true;
+              sm.type = 'module';
+              sm.src = h + s + '.mjs' + v;
+              f.parentNode.insertBefore(sm, f);
+              var sn = d.createElement(t);
+              sn.async = true;
+              sn.noModule = true;
+              sn.src = h + s + '.js' + v;
+              f.parentNode.insertBefore(sn, f);
+            })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+          `}
+        </Script>
+        <Script id="flodesk-form-handle" strategy="afterInteractive">
+          {`
+            window.fd('form:handle', {
+              formId: '${FLODESK_FORM_ID}',
+              rootEl: '.${FLODESK_ROOT_CLASS}',
+            });
+          `}
+        </Script>
       </div>
     </section>
   );
